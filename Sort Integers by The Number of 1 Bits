@@ -1,0 +1,35 @@
+class Solution {
+    public int counts(int a){
+    int c=0;
+            while(a>0)
+            {
+                if(a%2==1)
+                {
+                    c+=1;
+                }
+                a/=2;
+            }
+            return c;
+        }
+    public int[] sortByBits(int[] arr) {
+        int n=arr.length;
+        int temp=0;
+        int c1=0;
+        int c2=0;
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                c1=counts(arr[i]);
+                c2=counts(arr[j]);
+                if(c2<c1 || (c2==c1 && arr[j]<arr[i]))
+                {
+                    temp=arr[i];
+                    arr[i]=arr[j];
+                    arr[j]=temp;
+                }
+            }
+        }
+        return arr;
+    }
+}
