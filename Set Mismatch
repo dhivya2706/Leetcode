@@ -1,0 +1,25 @@
+import java.util.*;
+
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int n = nums.length;
+        int dup = 0;
+        int mis = 0;
+        Set<Integer> set = new HashSet<>();
+    
+        for (int i = 0; i < n; i++) {
+            int a = nums[i];
+            if (!set.add(a)) {
+                dup = a;
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            if (!set.contains(i)) {
+                mis = i;
+                break;
+            }
+        }
+        
+        return new int[]{dup, mis};
+    }
+}
