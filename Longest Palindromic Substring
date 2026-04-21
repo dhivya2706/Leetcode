@@ -1,0 +1,19 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        String longest = "";
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                String st = s.substring(i, j + 1);
+                String rev = new StringBuilder(st).reverse().toString();
+
+                if (st.equals(rev) && st.length() > longest.length()) {
+                    longest = st;
+                }
+            }
+        }
+
+        return longest;
+    }
+}
