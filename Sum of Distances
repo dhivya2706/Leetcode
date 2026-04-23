@@ -1,0 +1,43 @@
+import java.util.*;
+
+class Solution {
+    public long[] distance(int[] nums) {
+        int n = nums.length;
+        long[] res = new long[n];
+
+        Integer[] idx = new Integer[n];
+        for (int i = 0; i < n; i++) idx[i] = i;
+
+        // sort indices by value
+        Arrays.sort(idx, (a, b) -> nums[a] - nums[b]);
+
+        int i = 0;
+        while (i < n) {
+            int j = i;
+            while (j < n && nums[idx[j]] == nums[idx[i]]) {
+                j++;
+            }
+            int m = j - i;
+            long[] prefix = new long[m];
+
+            prefix[0] = idx[i];
+
+            for (int k = 1; k < m; k++) {
+                prefix[k] = prefix[k - 1] + idx[i + k];
+            }
+
+            for (int k = 0; k < m; k++) {
+                int pos = idx[i + k];
+
+                long left = (long) k * pos - (k > 0 ? prefix[k - 1] : 0);
+                long right = (prefix[m - 1] - prefix[k]) - (long) (m - k - 1) * pos;
+
+                res[pos] = left + right;
+            }
+
+            i = j;
+        }
+
+        return res;
+    }
+}
